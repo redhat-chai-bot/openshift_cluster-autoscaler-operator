@@ -5,7 +5,7 @@ ENV NO_DOCKER=1
 ENV BUILD_DEST=/go/bin/cluster-autoscaler-operator
 RUN unset VERSION && GOPROXY=off make build
 
-FROM registry.ci.openshift.org/openshift/origin-v4.0:base
+FROM quay-proxy.ci.openshift.org/openshift/ci:openshift_origin-v4.0_base
 COPY --from=builder /go/bin/cluster-autoscaler-operator /usr/bin/
 COPY --from=builder /go/src/github.com/openshift/cluster-autoscaler-operator/install /manifests
 CMD ["/usr/bin/cluster-autoscaler-operator"]
